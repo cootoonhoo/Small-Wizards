@@ -11,8 +11,11 @@ public class PlayerCtrl : MonoBehaviour
     public float JumpingFactor = 0.5f;
 
     [Header("Sprite")]
-    public bool RightFace = true;
+    public static bool RightFace = true;
 
+    [Header("Attack")]
+    public Transform firePosition;
+    public GameObject Fireball;
 
     // Start is called before the first frame update
     private void Start()
@@ -23,9 +26,11 @@ public class PlayerCtrl : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        
         SpriteRenderer();
         Move();
         Jump();
+        Fire();
     }
     private void Move()
     {
@@ -41,6 +46,11 @@ public class PlayerCtrl : MonoBehaviour
         {
             RigCharacter.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
             IsJumping = true;
+        }
+    }
+    void Fire() {
+        if (Input.GetButtonDown("Fire1")) {
+            Instantiate(Fireball, firePosition.position, firePosition.rotation);
         }
     }
     void SpriteRenderer() {
